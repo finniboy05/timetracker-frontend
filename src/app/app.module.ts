@@ -6,21 +6,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthConfig, OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { environment } from 'src/environments/environment';
-
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    OAuthModule.forRoot({resourceServer: {sendAccessToken: true}}),
-    BrowserAnimationsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { AppAuthGuard } from './guard/app.auth.guard';
+import { HttpXSRFInterceptor } from './interceptor/http.csrf.interceptor';
+import { AppAuthService } from './services/app.auth.service';
+import {MatButtonModule} from '@angular/material/button';
 
 export const authConfig: AuthConfig = {
   issuer: 'http://localhost:8080/realms/ILV',
@@ -40,3 +31,38 @@ export const authConfig: AuthConfig = {
 export function storageFactory(): OAuthStorage {
   return sessionStorage;
 }
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    OAuthModule.forRoot({resourceServer: {sendAccessToken: true}}),
+    BrowserAnimationsModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'X-XSRF-TOKEN'
+    }),
+    HttpClientModule,
+    MatButtonModule
+  ],
+  providers: [
+    {provide: AuthConfig, useValue: authConfig},
+    {provide: HTTP_INTERCEPTORS, useClass: HttpXSRFInterceptor, multi: true},
+    {
+      provide: OAuthStorage, useFactory: storageFactory
+    },
+    AppAuthGuard,
+    Location, {provide: LocationStrategy, useClass: PathLocationStrategy}
+  ],
+  bootstrap: [AppComponent]
+})
+
+export class AppModule {
+  constructor(authService: AppAuthService) {
+    authService.initAuth().finally();
+  }
+}
+
