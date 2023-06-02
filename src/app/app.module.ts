@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthConfig, OAuthModule, OAuthStorage } from 'angular-oauth2-oidc';
 import { environment } from 'src/environments/environment';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppAuthGuard } from './guard/app.auth.guard';
 import { HttpXSRFInterceptor } from './interceptor/http.csrf.interceptor';
@@ -15,8 +15,24 @@ import {MatButtonModule} from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
-import { StempelnComponent } from './pages/stempeln/stempeln.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { DepartmentListComponent } from './pages/department-list/department-list.component';
+import { DepartmentDetailComponent } from './pages/department-detail/department-detail.component';
+import { ProjectDetailComponent } from './pages/project-detail/project-detail.component';
+import { EmployeeDetailComponent } from './pages/employee-detail/employee-detail.component';
+import { StempelDetailComponent } from './pages/stempel-detail/stempel-detail.component';
+import {MatTableModule} from '@angular/material/table';
+import { IsInRoleDirective } from './dir/is.in.role.dir';
+import { IsInRolesDirective } from './dir/is.in.roles.dir';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatInputModule} from "@angular/material/input";
+import { MatDialogModule } from '@angular/material/dialog';
+import {ConfirmDialogComponent} from "./components/confirm-dialog/confirm-dialog.component";
+import { ProjectListComponent } from './pages/project-list/project-list.component';
+import { EmployeeListComponent } from './pages/employee-list/employee-list.component';
+import { StempelListComponent } from './pages/stempel-list/stempel-list.component';
 
 export const authConfig: AuthConfig = {
   issuer: 'http://localhost:8080/realms/ILV',
@@ -40,7 +56,17 @@ export function storageFactory(): OAuthStorage {
 @NgModule({
   declarations: [
     AppComponent,
-    StempelnComponent
+    DepartmentDetailComponent,
+    DepartmentListComponent,
+    ProjectDetailComponent,
+    EmployeeDetailComponent,
+    StempelDetailComponent,
+    IsInRoleDirective,
+    IsInRolesDirective,
+    ConfirmDialogComponent,
+    ProjectListComponent,
+    EmployeeListComponent,
+    StempelListComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +89,16 @@ export function storageFactory(): OAuthStorage {
     }),
     MatSidenavModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
+    MatInputModule,
+    MatDialogModule
   ],
   providers: [
     {provide: AuthConfig, useValue: authConfig},

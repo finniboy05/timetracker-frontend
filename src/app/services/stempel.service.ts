@@ -2,14 +2,14 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
-import { Stempel } from '../dataaccess/stempel';
+import { Stempel } from '../data/stempel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StempelService {
 
-  readonly backendUrl = 'Stempel';
+  readonly backendUrl = 'stempel';
 
   constructor(private http: HttpClient) {
   }

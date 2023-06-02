@@ -15,12 +15,37 @@
       <div>
         <div>
           <button (click)="navigateTo('about')" color="primary" mat-button>
-            <mat-icon>help</mat-icon>Über</button>
+            <mat-icon>help</mat-icon>About</button>
+        </div>
+        <!-- <div>
+          <button (click)="navigateTo('stempel')" color="primary" mat-button>
+            <mat-icon>alarm</mat-icon>TimeTracker</button>
+        </div> -->
+        <div>
+          <button (click)="navigateTo('departments')" color="primary" mat-button>
+            <mat-icon>business</mat-icon>Departments</button>
         </div>
         <div>
-          <button (click)="navigateTo('stempeln')" color="primary" mat-button>
-            <mat-icon>code</mat-icon>Stempeln</button>
+          <button (click)="navigateTo('employees')" color="primary" mat-button>
+            <mat-icon>badge</mat-icon>Employees</button>
         </div>
+        <div>
+          <button (click)="navigateTo('projects')" color="primary" mat-button>
+            <mat-icon>code</mat-icon>Projects</button>
+        </div>
+        <div *ngIf="oAuthService.hasValidAccessToken()" style="margin-top: 50px">
+          <button (click)="logout()" color="warn" mat-button>
+            <mat-icon>logout</mat-icon>
+            Logout
+          </button>
+        </div>
+        <div *ngIf="!oAuthService.hasValidAccessToken()" style="margin-top: 50px">
+          <button (click)="login()" color="warn" mat-button>
+            <mat-icon>login</mat-icon>
+            Login
+          </button>
+        </div>
+
       </div>
     </mat-drawer>
 
@@ -30,4 +55,3 @@
 
   </mat-drawer-container>
 </div>
-

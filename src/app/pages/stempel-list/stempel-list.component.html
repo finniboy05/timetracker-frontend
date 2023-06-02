@@ -1,0 +1,48 @@
+<h1>Stempel</h1>
+<div>
+  <mat-toolbar color="primary">
+    <span>
+      <button (click)="add()" color="primary" mat-button style="color: white">
+        <mat-icon>add</mat-icon>
+        Add new Stempel
+      </button>
+    </span>
+  </mat-toolbar>
+</div>
+<div>
+  <table
+    [dataSource]="stempelDataSource"
+    class="mat-elevation-z8 departments-table"
+    mat-table
+  >
+    <ng-container matColumnDef="actions">
+      <th *matHeaderCellDef class="w-75 th-center" mat-header-cell></th>
+      <td *matCellDef="let element" mat-cell style="text-align: end">
+        <button (click)="edit(element)" color="primary" mat-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button (click)="delete(element)" color="warn" mat-button>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="id">
+      <th *matHeaderCellDef mat-header-cell>Id</th>
+      <td *matCellDef="let element" mat-cell>{{ element.id }}</td>
+    </ng-container>
+    <ng-container matColumnDef="time">
+      <th *matHeaderCellDef mat-header-cell>Name</th>
+      <td *matCellDef="let element" mat-cell>{{ element.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="employeeId">
+      <th *matHeaderCellDef mat-header-cell>Employee ID</th>
+      <td *matCellDef="let element" mat-cell>{{ element.employeeId }}</td>
+    </ng-container>
+    <ng-container matColumnDef="projectId">
+      <th *matHeaderCellDef mat-header-cell>Project ID</th>
+      <td *matCellDef="let element" mat-cell>{{ element.projectId }}</td>
+    </ng-container>
+    <tr *matHeaderRowDef="columns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: columns" mat-row></tr>
+  </table>
+</div>

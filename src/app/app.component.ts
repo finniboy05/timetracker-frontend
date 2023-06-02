@@ -2,6 +2,7 @@ import { AppAuthService } from './services/app.auth.service';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {MenuService} from "./services/menu.service";
+import { OAuthService } from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit, OnDestroy {
   currentPage = '';
   private subPage?: Subscription;
 
-  constructor(private authService: AppAuthService, private menuService: MenuService) {
+  constructor(private authService: AppAuthService, private menuService: MenuService, public oAuthService: OAuthService) {
   }
 
   public login() {
